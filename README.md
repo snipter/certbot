@@ -12,8 +12,25 @@ Deploy:
 make deploy
 ```
 
-Use:
+Receive certificate:
 
+```bash
+docker run -it --rm \
+  -v "$(pwd)/data/ssl:/etc/letsencrypt" \
+  -v "$(pwd)/conf/ssl/cloudflare.ini:/cf.ini" \
+  snipter/certbot certonly \
+  --dns-cloudflare \
+  --dns-cloudflare-credentials /cf.ini \
+  --server https://acme-v02.api.letsencrypt.org/directory \
+  -d smartapp.com.ua \
+  -d *.smartapp.com.ua
 ```
-dc run -it --rm -v "$(pwd)/data/ssl:/etc/letsencrypt" -v "$(pwd)/cloudflare.ini:/cf.ini" snipter/certbot renew
+
+Renew:
+
+```bash
+docker run -it --rm \
+  -v "$(pwd)/data/ssl:/etc/letsencrypt" \
+  -v "$(pwd)/conf/ssl/cloudflare.ini:/cf.ini" \
+  snipter/certbot renew
 ```
